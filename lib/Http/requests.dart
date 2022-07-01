@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:algorithm_mobile/Functions/helpers.dart';
 import 'package:algorithm_mobile/Model/Coord.dart';
 
 HttpClient client = new HttpClient();
@@ -42,4 +43,15 @@ Future getAllData(String id) async {
   }
 
   print(list);
+}
+
+Future postAllData(String id, String descriotion) async {
+  client.badCertificateCallback =
+      ((X509Certificate cert, String host, int port) => true);
+  HttpClientRequest request = await client.postUrl(Uri.parse(
+      "http://developer.kensnz.com/api/addlocdata?userid=$id&latitude=$latitude&longitide=$log&description=$descriotion"));
+  request.headers.add("Content-Type", "application/json");
+  request.headers.add("Accept", "*/*");
+  HttpClientResponse result = await request.close();
+  print(result.statusCode);
 }

@@ -9,9 +9,8 @@ class AllDataWidget extends StatefulWidget {
 
 class _AllDataWidgetState extends State<AllDataWidget> {
   @override
-  var idController = TextEditingController();
-
   Widget build(BuildContext context) {
+    var idController = TextEditingController();
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 1.8,
@@ -39,7 +38,6 @@ class _AllDataWidgetState extends State<AllDataWidget> {
               ? ElevatedButton(
                   onPressed: () async {
                     await getAllData(idController.text);
-
                     setState(() {});
                   },
                   child: Text("Recieve"))

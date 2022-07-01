@@ -5,9 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import '../Functions/helpers.dart';
 
 class NewLocationWidget extends StatelessWidget {
-  const NewLocationWidget({Key? key}) : super(key: key);
-
   @override
+  var userid = TextEditingController();
+  var description = TextEditingController();
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -48,10 +48,7 @@ class NewLocationWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 2,
             child: ElevatedButton(
               onPressed: () async {
-                Position position = await Geolocator.getCurrentPosition(
-                    desiredAccuracy: LocationAccuracy.high);
-                print(position.latitude);
-                print(position.longitude);
+                postAllData(userid.text, description.text);
               },
               child: Text("Send"),
             ),
