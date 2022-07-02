@@ -15,28 +15,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   var tab = false;
   Widget build(BuildContext context) {
-    Future success() => showDialog(
-        context: context,
-        builder: (context) => Dialog(
-              child: Container(
-                color: Colors.green,
-                width: MediaQuery.of(context).size.width,
-                height: 100,
-                child: Text(
-                    "Success! Your location has been sent to the web server"),
-              ),
-            ));
-    Future fail() => showDialog(
-        context: context,
-        builder: (context) => Dialog(
-              child: Container(
-                color: Colors.amber,
-                width: MediaQuery.of(context).size.width,
-                height: 100,
-                child: Text(
-                    "Whoops! Your location was not sent to the web server"),
-              ),
-            ));
     return Scaffold(
       body: Container(
         width: double.infinity,

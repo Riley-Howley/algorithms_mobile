@@ -27,6 +27,7 @@ class _AllDataWidgetState extends State<AllDataWidget> {
           Container(
             width: MediaQuery.of(context).size.width / 1.5,
             child: TextField(
+              keyboardType: TextInputType.number,
               controller: idController,
               decoration: InputDecoration(
                 hintText: "User ID",

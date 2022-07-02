@@ -5,10 +5,42 @@ import 'package:geolocator/geolocator.dart';
 import '../Functions/helpers.dart';
 
 class NewLocationWidget extends StatelessWidget {
-  @override
   var userid = TextEditingController();
   var description = TextEditingController();
+  @override
   Widget build(BuildContext context) {
+    Future success() => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+              child: Container(
+                color: Colors.green,
+                width: MediaQuery.of(context).size.width,
+                height: 100,
+                child: Text(
+                  "Success! Your location has been sent to the web server",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ));
+    Future fail() => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+              child: Container(
+                color: Colors.amber,
+                width: MediaQuery.of(context).size.width,
+                height: 100,
+                child: Text(
+                  "Whoops! Your location was not sent to the web server",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ));
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 1.8,
@@ -25,6 +57,8 @@ class NewLocationWidget extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width / 1.5,
             child: TextField(
+              keyboardType: TextInputType.number,
+              controller: userid,
               decoration: InputDecoration(
                 hintText: "User ID",
                 border: OutlineInputBorder(),
@@ -35,6 +69,7 @@ class NewLocationWidget extends StatelessWidget {
             margin: EdgeInsets.only(top: 20),
             width: MediaQuery.of(context).size.width / 1.5,
             child: TextField(
+              controller: description,
               maxLines: 5,
               decoration: InputDecoration(
                 hintText: "Description",
@@ -48,7 +83,13 @@ class NewLocationWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 2,
             child: ElevatedButton(
               onPressed: () async {
-                postAllData(userid.text, description.text);
+                await getLocation();
+                await postAllData(userid.text, description.text);
+                if (code == "201") {
+                  success();
+                } else {
+                  fail();
+                }
               },
               child: Text("Send"),
             ),

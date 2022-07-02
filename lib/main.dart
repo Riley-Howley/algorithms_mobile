@@ -112,7 +112,11 @@ class _HomePageState extends State<HomePage> {
                                   DashboardScreen(nameController.text),
                             ));
                           },
-                          child: Icon(Icons.explore),
+                          child: Icon(
+                            Icons.explore,
+                            color: Colors.blue,
+                            size: 50,
+                          ),
                         ),
                       ),
                     ],
