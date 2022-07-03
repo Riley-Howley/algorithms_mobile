@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../Http/requests.dart';
+
+Set<Polygon> polygons = Set<Polygon>();
 
 class AllDataWidget extends StatefulWidget {
   @override
@@ -8,62 +13,52 @@ class AllDataWidget extends StatefulWidget {
 }
 
 class _AllDataWidgetState extends State<AllDataWidget> {
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(-46.4179, 168.3615),
+    zoom: 14.4746,
+  );
+
+  Completer<GoogleMapController> _controller = Completer();
+
+  List<LatLng> polygoneLatLngs = <LatLng>[];
+
+  int _polgonIdCounter = 1;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _setPolygon() {
+    final String polygonIdVal = 'polygon_$_polgonIdCounter';
+    _polgonIdCounter++;
+
+    polygons.add(
+      Polygon(
+          polygonId: PolygonId(polygonIdVal),
+          points: polygoneLatLngs,
+          strokeWidth: 2,
+          fillColor: Colors.transparent),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var idController = TextEditingController();
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 1.8,
-      color: Colors.white,
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 20, bottom: 20),
-            child: Text(
-              "View your Data",
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 1.5,
-            child: TextField(
-              keyboardType: TextInputType.number,
-              controller: idController,
-              decoration: InputDecoration(
-                hintText: "User ID",
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          list.isEmpty
-              ? ElevatedButton(
-                  onPressed: () async {
-                    await getAllData(idController.text);
-                    setState(() {});
-                  },
-                  child: Text("Recieve"))
-              : Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 200,
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 20),
-                        child: Column(
-                          children: [
-                            Text("${list[index].userid}"),
-                            Text("${list[index].latitude}"),
-                            Text("${list[index].longitude}"),
-                            Text("${list[index].description}"),
-                          ],
-                        ),
-                      );
-                    },
-                    itemCount: list.length,
-                  ),
-                ),
-        ],
-      ),
+    return GoogleMap(
+      mapType: MapType.satellite,
+      markers: listOfUserMarkers,
+      polygons: UserPolygons,
+      initialCameraPosition: _kGooglePlex,
+      onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+      },
+      // onTap: (point) {
+      //   setState(() {
+      //     polygoneLatLngs.add(point);
+      //     _setPolygon();
+      //   });
+      // },
     );
   }
 }
