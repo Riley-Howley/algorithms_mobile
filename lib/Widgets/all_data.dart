@@ -36,12 +36,6 @@ class _AllDataWidgetState extends State<AllDataWidget> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
-        // onTap: (point) {
-        //   setState(() {
-        //     polygoneLatLngs.add(point);
-        //     _setPolygon();
-        //   });
-        // },
       ),
     );
   }

@@ -227,7 +227,7 @@ convexHull(List<Points> coords, int colorIndex) {
     ),
   );
 
-  print("${hull.length} Hull Length");
+  print("${CalcArea(hull)} Area of Polygone");
 }
 
 bool isValid(List<Points> hull) {
@@ -236,4 +236,13 @@ bool isValid(List<Points> hull) {
           hull[hull.length - 3], hull[hull.length - 2], hull[hull.length - 1]) >
       0;
   //SignedArea
+}
+
+double CalcArea(List<Points> hull) {
+  double area = 0;
+  for (int i = 0; i < hull.length; i++) {
+    int j = (i + 1) % hull.length;
+    area += hull[i].x * hull[j].y - hull[i].y * hull[j].x;
+  }
+  return area / 2;
 }
