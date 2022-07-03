@@ -56,15 +56,15 @@ Future getAllData() async {
     List<dynamic> jsonData =
         jsonDecode(await result.transform(utf8.decoder).join());
 
-    if (listCoord.isNotEmpty) {
-      listCoord.clear();
+    if (list.isNotEmpty) {
+      list.clear();
     }
     for (var i in jsonData) {
       if (i['userid'] == "2016012187" ||
           i['userid'] == "30" ||
           i['userid'] == "2019000480" ||
           i['userid'] == "42") {
-        listCoord.add(
+        list.add(
           new UserCoord(
             i["userid"],
             i["latitude"],

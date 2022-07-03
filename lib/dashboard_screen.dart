@@ -56,7 +56,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   tab == false ? Colors.orange : Colors.white),
                         )),
                     TextButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          await getAllData();
                           setState(() {
                             tab = !tab;
                           });

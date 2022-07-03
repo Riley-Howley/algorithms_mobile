@@ -22,43 +22,27 @@ class _AllDataWidgetState extends State<AllDataWidget> {
 
   List<LatLng> polygoneLatLngs = <LatLng>[];
 
-  int _polgonIdCounter = 1;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void _setPolygon() {
-    final String polygonIdVal = 'polygon_$_polgonIdCounter';
-    _polgonIdCounter++;
-
-    polygons.add(
-      Polygon(
-          polygonId: PolygonId(polygonIdVal),
-          points: polygoneLatLngs,
-          strokeWidth: 2,
-          fillColor: Colors.transparent),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var idController = TextEditingController();
-    return GoogleMap(
-      mapType: MapType.satellite,
-      markers: listOfUserMarkers,
-      polygons: UserPolygons,
-      initialCameraPosition: _kGooglePlex,
-      onMapCreated: (GoogleMapController controller) {
-        _controller.complete(controller);
-      },
-      // onTap: (point) {
-      //   setState(() {
-      //     polygoneLatLngs.add(point);
-      //     _setPolygon();
-      //   });
-      // },
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 1.5,
+      child: GoogleMap(
+        mapType: MapType.satellite,
+        markers: listOfUserMarkers,
+        polygons: UserPolygons,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        // onTap: (point) {
+        //   setState(() {
+        //     polygoneLatLngs.add(point);
+        //     _setPolygon();
+        //   });
+        // },
+      ),
     );
   }
 }
