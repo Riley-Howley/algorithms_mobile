@@ -1,6 +1,6 @@
 # ConvexHull Algorithm Map Project
 
-https://i.ibb.co/TPhTNc2/algo.png
+<img src="https://i.ibb.co/TPhTNc2/algo.png" alt="algo">
 
 What does the convexhull algorithm do?
 
