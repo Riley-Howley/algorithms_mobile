@@ -1,6 +1,6 @@
 # ConvexHull Algorithm Map Project
 
-https://github.com/Riley-Howley/algorithms_mobile/blob/main/assets/algo.png?raw=true
+https://github.com/Riley-Howley/algorithms_mobile/blob/main/assets/algo.png
 
 What does the convexhull algorithm do?
 
