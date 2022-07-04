@@ -4,6 +4,14 @@ import 'package:geolocator/geolocator.dart';
 
 import '../Functions/helpers.dart';
 
+/*
+  Flutter Widget Title: NewLocation.
+  What it does:
+  This method is ts how the user adds their location to the webserver. There is two textfields one for userid and
+  the second is for description. Once the button is pressed the request is sent and then the user is prompted with either
+  a success Dialog or an error dialog, depending on the status code from the post method in the requests.
+  */
+
 class NewLocationWidget extends StatelessWidget {
   var userid = TextEditingController();
   var description = TextEditingController();

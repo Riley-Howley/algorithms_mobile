@@ -4,6 +4,22 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 import 'dashboard_screen.dart';
+/*
+  Flutter Title: main.
+  What it does:
+  This is one of the best parts of the app. This is the connectivity screen. If the user is not connected to
+  a network then their is an error message displayed. The default way is using standard connectivity plus however
+  this is an incorrect way of doing it because it does not check the network actual connection. Therefore I used
+  this way to check the network connection of mobile and wifi
+  */
+
+List<String> mainUserID = [
+  "202251",
+  "202252",
+  "202253",
+  "2019000480",
+  "42069420",
+];
 
 void main() => runApp(MaterialApp(home: HomePage()));
 
@@ -97,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           "Explore Now",
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -134,6 +150,14 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+/*
+  Flutter Class Title: MyConnectivity.
+  What it does:
+  This is using a stream that listens for changes of the network. Initially the app is loaded and the check is run.
+  it sends a request to example.com and the result of that is the network connection state. The rest is checking
+  if the uses has disconnected or lost connection the error message will appear.
+  */
+
 class MyConnectivity {
   MyConnectivity._();
 
@@ -150,6 +174,12 @@ class MyConnectivity {
       _checkStatus(result);
     });
   }
+
+  /*
+  Flutter Method Title: _checkStatus.
+  What it does:
+  This does what I explained in the above comment however doesnt it just look so nice.
+  */
 
   void _checkStatus(ConnectivityResult result) async {
     bool isOnline = false;

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:algorithm_mobile/Functions/helpers.dart';
 import 'package:algorithm_mobile/Model/Coord.dart';
+import 'package:algorithm_mobile/Widgets/all_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -24,6 +25,15 @@ var ip = "http://developer.kensnz.com/getlocdata";
 
 List<UserCoord> listCoord = [];
 
+/*
+  Method Title: PostAllData.
+  What it does:
+  This method takes a userid and description of a users location and sends a post request to kens server.
+  Using the inbuilt Flutter HttpClient this ensures that there will be no issues with the requests.
+  Using a Map the request of the URI is encode to utf8 and added to the request.
+  The other request headers are for minimizing errors and are very handy
+ */
+
 Future postAllData(String userid, String description) async {
   Map map = {
     "userid": "$userid",
@@ -44,6 +54,16 @@ Future postAllData(String userid, String description) async {
   print(code);
 }
 
+/*
+  Method Title: GetAllData.
+  What it does:
+  This method sends a get request to Kens server and returns every json object of users locations.
+  The object is then decoded to a HttpClientResult and checks that the results status code is 200. Accepted
+  Then the result is decoded and transformed.
+  Once this is done the list that will be storing these objects is checked and if its empty then it adds the
+  object else it clears the list and then adds it. this will stop duplicaiton of data in the list.
+ */
+
 Future getAllData() async {
   client.badCertificateCallback =
       ((X509Certificate cert, String host, int port) => true);
@@ -60,24 +80,34 @@ Future getAllData() async {
       list.clear();
     }
     for (var i in jsonData) {
-      if (i['userid'] == "2016012187" ||
-          i['userid'] == "30" ||
-          i['userid'] == "2019000480" ||
-          i['userid'] == "42") {
-        list.add(
-          new UserCoord(
-            i["userid"],
-            i["latitude"],
-            i["longitude"],
-            i["description"],
-            i["created_at"],
-          ),
-        );
-      } else {
-        continue;
+      for (var user in userid) {
+        if (i['userid'] == user) {
+          list.add(
+            new UserCoord(
+              i["userid"],
+              i["latitude"],
+              i["longitude"],
+              i["description"],
+              i["created_at"],
+            ),
+          );
+        } else {
+          continue;
+        }
       }
     }
   }
+  /*
+  Method Title: NA.
+  What it does:
+  Due to this method being so long I thought it would be fitting to have a comment here.
+  What this does is gets rid of all duplicate userid and adds all the users uniqueid locations
+  to a list. Therefore all latlngs are accessed via a userid. Once this is done there is a loop
+  that goes through the list of all user coords and assigns a random color. using a random variable.
+  Then foreach userid and takes latlng and adds them to a point object used to convex hull algorithm.
+  First each of the users locations are given a marker with a random color assigned earlier.
+  Then this method calls ConvexHull
+ */
 
   List<List<UserCoord>> listUserCoords = [];
 
@@ -116,6 +146,7 @@ Future getAllData() async {
         ),
       );
     }
+    //If the coords length is less that four Polygon is not created.
     if (coords.length < 4) {
       continue;
     } else {
@@ -125,6 +156,13 @@ Future getAllData() async {
 
   print("The Length of Polygon list is ${UserPolygons.length}");
 }
+
+/*
+  Method Title: getRandomColor.
+  What it does:
+  This method takes the random unique int from the previous method and sends back the 
+  color of the BitMapDescriptor since the markers use a BitMapDescriptor type for the markers
+ */
 
 getRandomColor(int num) {
   switch (num) {
@@ -153,6 +191,14 @@ getRandomColor(int num) {
   }
 }
 
+/*
+  Method Title: getRandomColors.
+  What it does:
+  This method takes the random unique int from the previous method and sends back the 
+  color of the result used for the coloring of the Convex hull (Polygon) and the Polylines (Lines)
+  connecting the markers together
+ */
+
 getRandomColors(int num) {
   switch (num) {
     case 0:
@@ -179,6 +225,18 @@ getRandomColors(int num) {
       return Colors.blueGrey.withOpacity(0.2);
   }
 }
+
+/*
+  Method Title: ConvexHull.
+  What it does:
+  This method takes a list of Points used for the convex hull algorithm and a colorIndex.
+  First for all the points add it to the points list. Then the extract the first element in points
+  and assign it the Pivot. Then loops from the first index all points and checks for the lowest x and y
+  this is to get the pivot. Then points remove the pivot. The points is then sorted using a radial sort
+  and then a new list of points is assigned to hull. This will store the final hull latlng.
+  Then the hull algorithm is performed and foreach element in hull it creates a LatLng type and
+  creates a new polygon and adds it to a list userPolgons.
+ */
 
 convexHull(List<Points> coords, int colorIndex) {
   print(coords.length);
@@ -218,17 +276,21 @@ convexHull(List<Points> coords, int colorIndex) {
     pointCoords.add(new LatLng(i.x, i.y));
   }
 
-  UserPolygons.add(
-    new Polygon(
-      polygonId: PolygonId('ConvexHull'),
-      points: pointCoords,
-      fillColor: getRandomColors(colorIndex),
-      strokeColor: getRandomColors(colorIndex),
-    ),
-  );
+  UserPolygons.add(new Polygon(
+    polygonId: PolygonId('ConvexHull'),
+    points: pointCoords,
+    fillColor: getRandomColors(random.nextInt(9)),
+    strokeColor: getRandomColors(random.nextInt(9)),
+  ));
 
   print("${CalcArea(hull)} Area of Polygone");
 }
+
+/*
+  Method Title: isValid.
+  What it does:
+  This method takes the hull list developed in the previous method and checks if it is valid or not.
+ */
 
 bool isValid(List<Points> hull) {
   if (hull.length < 3) return true;
@@ -238,11 +300,21 @@ bool isValid(List<Points> hull) {
   //SignedArea
 }
 
-double CalcArea(List<Points> hull) {
+String totalArea = "";
+
+/*
+  Method Title: CalcArea.
+  What it does:
+  This method takes the hull list developed in the ConvexHull algorithm above and returns the total area of the hull.
+  At this present point the hull has LatLng coords therefore need to be transformed into double.
+  Watch this space
+ */
+
+CalcArea(List<Points> hull) {
   double area = 0;
   for (int i = 0; i < hull.length; i++) {
     int j = (i + 1) % hull.length;
     area += hull[i].x * hull[j].y - hull[i].y * hull[j].x;
   }
-  return area / 2;
+  totalArea = "${area / 2}";
 }

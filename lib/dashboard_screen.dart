@@ -3,6 +3,16 @@ import 'package:algorithm_mobile/Widgets/all_data.dart';
 import 'package:algorithm_mobile/Widgets/new_location.dart';
 import 'package:flutter/material.dart';
 
+/*
+  Flutter Screen Title: DashBoardScreen.
+  What it does:
+  This method is the screen that is displayed after the user enters their name.
+  However this screen works like a tabview but is different. Due to tabView needing
+  to use a tabBarController this is bad due to the controlller not disposing correctly
+  which causes issues with states I used a bool switch value that switches between two widges.
+  NewLocation and AllData.
+  */
+
 class DashboardScreen extends StatefulWidget {
   String name;
   DashboardScreen(this.name);
@@ -43,6 +53,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     TextButton(
                         onPressed: () {
                           list.clear();
+                          userid.clear();
+                          UserPolygons.clear();
+                          listOfUserMarkers.clear();
                           setState(() {
                             tab = !tab;
                           });
@@ -57,7 +70,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         )),
                     TextButton(
                         onPressed: () async {
-                          await getAllData();
                           setState(() {
                             tab = !tab;
                           });

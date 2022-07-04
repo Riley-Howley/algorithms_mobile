@@ -1,3 +1,9 @@
+/*
+  Class Title: CoordModel.
+  What it does:
+  Is the model to house the JsonObjects decoded 
+ */
+
 class CoordModel {
   String userid;
   String latitude;
