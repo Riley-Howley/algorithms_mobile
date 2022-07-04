@@ -49,7 +49,7 @@ What does the convexhull algorithm do?
 
 ## User Manual
 
-### Instalation
+### Installation
 
 This app requires [Flutter](https://flutter.dev/) v3.0+ to run.
 
@@ -63,6 +63,15 @@ flutter run
 
 To ensure the app runs perfectly ensure that in the app settings that the permissions are accepted
 
-> Note: `YOUR INFORMATION IS SAVED ON A PUBLIC SERVER` and will be viewed by many people.
+> Note: <span style="color:red">YOUR INFORMATION IS SAVED ON A PUBLIC SERVER</span> and will be viewed by many people.
 
 ### How to use
+
+Once the application has launch add your name to the textfield and click the world to (Explore!).
+You will then be prompted with two text fields fill them in if you want to add a new location.
+OR click view to see four options of userid or add your own. When click either one or all of them
+click View Maps and you will then see the google map with the markers and the convex hull.
+Only markers will displayed on the map if the userid exists and polygon (Hull) will not be drawn
+unless the userid points are >= 3;
+
+Feel Free to pull the code and look around and use it for your own benefit.
