@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../main.dart';
 
+/*
+  Flutter Title: AddUser.
+  What it does:
+  This screen is for when the user adds their name to auto store their credentials. Using
+  shared preferences the user add name and user id via two textfields and stores them.
+  Once this is done the shared preferences adds them and then pops the screen to the previous state.
+ */
+
 class AddUser extends StatelessWidget {
   var usernameController = TextEditingController();
   var usernidController = TextEditingController();

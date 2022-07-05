@@ -5,6 +5,15 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../main.dart';
 
+/*
+  Flutter Title: EditUser.
+  What it does:
+  This screen is for when the user edits their name to auto store their credentials. Using
+  shared preferences the user edit name and user id via two textfields and stores them.
+  Once this is done the shared preferences changes them and then pushes the replacement screen
+  Dashboard with the updated credentials.
+ */
+
 class EditUser extends StatelessWidget {
   String name;
   String id;

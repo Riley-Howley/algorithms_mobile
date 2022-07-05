@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+// import 'dart:math' as math;
 import 'dart:math';
 import 'package:algorithm_mobile/Functions/helpers.dart';
-import 'package:algorithm_mobile/Model/Coord.dart';
 import 'package:algorithm_mobile/Widgets/all_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -283,7 +283,7 @@ convexHull(List<Points> coords, int colorIndex) {
     strokeColor: getRandomColors(random.nextInt(9)),
   ));
 
-  print("${CalcArea(hull)} Area of Polygone");
+  print("Unavailable Area of Polygone");
 }
 
 /*
@@ -310,11 +310,18 @@ String totalArea = "";
   Watch this space
  */
 
-CalcArea(List<Points> hull) {
-  double area = 0;
-  for (int i = 0; i < hull.length; i++) {
-    int j = (i + 1) % hull.length;
-    area += hull[i].x * hull[j].y - hull[i].y * hull[j].x;
-  }
-  totalArea = "${area / 2}";
-}
+// CalcArea(List<Points> hull) {
+//   double area = 0;
+//   for (int i = 0; i < hull.length; i++) {
+//     Points p1 = hull[i];
+//     Points p2 = hull[i];
+//     area += convertToRadians(p2.y - p1.y) *
+//         (2 +
+//             math.sin(convertToRadians(p1.x)) +
+//             math.sin(convertToRadians(p2.x)));
+//   }
+// }
+
+// double convertToRadians(double input) {
+//   return input * math.pi / 180;
+// }

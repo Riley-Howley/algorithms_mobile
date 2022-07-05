@@ -17,6 +17,9 @@ import 'main.dart';
   to use a tabBarController this is bad due to the controlller not disposing correctly
   which causes issues with states I used a bool switch value that switches between two widges.
   NewLocation and AllData.
+  Recently added was the connectivity tracker. This was added due to originally only checking
+  on the home screen, now the app checks on the dashboard. To read more about the connection
+  checker visit the main.dart file and read the comments for connectivity.
   */
 
 class DashboardScreen extends StatefulWidget {

@@ -28,6 +28,15 @@ List<String> mainUserID = [
   "42069420",
 ];
 
+/*
+  Method Title: Main.
+  What it does:
+  This method is the main method which is called at the very start of the app.
+  In this method I have WidgetsFlutterBinding to ensure they are initialized on start.
+  Within this method I have sharedPreferences this is initialised as a global variable
+  so that it can be accessed anywhere in the app easily, however right here I have a check if
+  their is a name stored then auto login with name and userid else show the HomeScreen (Login/add user).
+ */
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
