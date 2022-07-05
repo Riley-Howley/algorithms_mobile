@@ -56,18 +56,18 @@ What does the convexhull algorithm do?
 
 ### What Went Wrong
 
-Test case 1: Running the get request method via the application resulted in status code 200 which passed the test case.
-Test case 2: Post Request returned error 500 which failed the test case.
-Test case 3: Post request was fixing by checking the params of the json encoded map showed that twop values were null,
-once fixed this issue the request resuted in status code 201 which passed the test case.
-Test case 4: Display all User markers successfully were added to the google map which passed the test case.
-Test case 5: Convex Hull around user markers failed due to the Signed Area not correct which failed the test case.
-Test case 6: Convex hull around all user markers worked after fixing signed area which passed the test case.
-Test case 7: Display Total Area of user hull shows incorrect number which failed the test case.
-Test case 8: Save Credentials of user to sharedpreferences failed the test case.
-Test case 9: Fixed the save credentials by looking at docs on pub dev and fixed some bugs which didnt fix the problem
-which failed the test case.
-Test case 10: Save credentials of the user worked after wrong error check on variable which passed the test case.
+- Test case 1: Running the get request method via the application resulted in status code 200 which passed the test case.
+- Test case 2: Post Request returned error 500 which failed the test case.
+- Test case 3: Post request was fixing by checking the params of the json encoded map showed that twop values were null,
+  once fixed this issue the request resuted in status code 201 which passed the test case.
+- Test case 4: Display all User markers successfully were added to the google map which passed the test case.
+- Test case 5: Convex Hull around user markers failed due to the Signed Area not correct which failed the test case.
+- Test case 6: Convex hull around all user markers worked after fixing signed area which passed the test case.
+- Test case 7: Display Total Area of user hull shows incorrect number which failed the test case.
+- Test case 8: Save Credentials of user to sharedpreferences failed the test case.
+- Test case 9: Fixed the save credentials by looking at docs on pub dev and fixed some bugs which didnt fix the problem
+  which failed the test case.
+- Test case 10: Save credentials of the user worked after wrong error check on variable which passed the test case.
 
 ## User Manual
 
