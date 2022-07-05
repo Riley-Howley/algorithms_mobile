@@ -98,7 +98,7 @@ click View Maps and you will then see the google map with the markers and the co
 Only markers will displayed on the map if the userid exists and polygon (Hull) will not be drawn
 unless the userid points are >= 3;
 
-# Broken Code
+## Broken Code
 
 Due to the Convex hull points being coords this made it very difficult to calculate the total area.
 In the future I would like to have the abiity to show the total area of the hull on the screen to
@@ -106,7 +106,7 @@ be viewed by the users.
 Here is a link to the stackoverflow post that I was using to try and solve this problem.
 [Stack Overflow](https://stackoverflow.com/questions/2861272/polygon-area-calculation-using-latitude-and-longitude-generated-from-cartesian-s)
 
-# Conclusion
+## Conclusion
 
 Feel Free to pull the code and look around and use it for your own benefit.
 If you have any idea how to solve the total area issue submit a pull request.
