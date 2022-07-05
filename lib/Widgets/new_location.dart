@@ -1,4 +1,5 @@
 import 'package:algorithm_mobile/Http/requests.dart';
+import 'package:algorithm_mobile/Widgets/edit_user.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -13,10 +14,16 @@ import '../Functions/helpers.dart';
   */
 
 class NewLocationWidget extends StatelessWidget {
+  String name;
+  String id;
+  NewLocationWidget(this.name, this.id);
   var userid = TextEditingController();
   var description = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    if (id != "") {
+      userid.text = id;
+    }
     Future success() => showDialog(
         context: context,
         builder: (context) => Dialog(
@@ -55,12 +62,28 @@ class NewLocationWidget extends StatelessWidget {
       color: Colors.white,
       child: Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 20, bottom: 20),
-            child: Text(
-              "Add new Location",
-              style: TextStyle(fontSize: 18),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 20, bottom: 20),
+                child: Text(
+                  "Add new Location",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => EditUser(name, id),
+                  ));
+                },
+                child: Text(
+                  "Edit Account",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
           ),
           Container(
             width: MediaQuery.of(context).size.width / 1.5,

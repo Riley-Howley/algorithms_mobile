@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:algorithm_mobile/Widgets/add_user.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dashboard_screen.dart';
 /*
@@ -13,6 +15,8 @@ import 'dashboard_screen.dart';
   this way to check the network connection of mobile and wifi
   */
 
+late SharedPreferences prefs;
+
 List<String> mainUserID = [
   "202251",
   "202252",
@@ -21,7 +25,12 @@ List<String> mainUserID = [
   "42069420",
 ];
 
-void main() => runApp(MaterialApp(home: HomePage()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+
+  runApp(MaterialApp(home: HomePage()));
+}
 
 class HomePage extends StatefulWidget {
   @override
@@ -122,17 +131,38 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         child: FloatingActionButton(
                           backgroundColor: Colors.white,
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  DashboardScreen(nameController.text),
-                            ));
+                          onPressed: () async {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            var name = prefs.getString('name');
+                            var id = prefs.getString('id');
+                            if (name != null || id != null) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => DashboardScreen(
+                                    name.toString(), id.toString()),
+                              ));
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    DashboardScreen(nameController.text, ""),
+                              ));
+                            }
                           },
                           child: Icon(
                             Icons.explore,
                             color: Colors.blue,
                             size: 50,
                           ),
+                        ),
+                      ),
+                      Container(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AddUser(),
+                            ));
+                          },
+                          child: Text("Add New User"),
                         ),
                       ),
                     ],

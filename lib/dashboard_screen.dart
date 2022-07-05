@@ -15,7 +15,8 @@ import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
   String name;
-  DashboardScreen(this.name);
+  String id;
+  DashboardScreen(this.name, this.id);
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -24,6 +25,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   var tab = false;
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -84,7 +86,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ))
                   ],
                 ),
-                tab == false ? NewLocationWidget() : AllDataWidget(),
+                tab == false
+                    ? NewLocationWidget(widget.name, widget.id)
+                    : AllDataWidget(),
               ],
             ),
           ),
