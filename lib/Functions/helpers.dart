@@ -12,6 +12,8 @@ import 'package:geolocator/geolocator.dart';
 String latitude = "";
 String log = "";
 getLocation() async {
+  LocationPermission permission;
+  permission = await Geolocator.requestPermission();
   var message = "";
   var position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high);

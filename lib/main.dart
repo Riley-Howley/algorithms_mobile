@@ -16,6 +16,9 @@ import 'dashboard_screen.dart';
   */
 
 late SharedPreferences prefs;
+final MyConnectivity connectivity = MyConnectivity.instance;
+
+String string = "";
 
 List<String> mainUserID = [
   "202251",
@@ -28,8 +31,14 @@ List<String> mainUserID = [
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
-
-  runApp(MaterialApp(home: HomePage()));
+  var name = prefs.getString('name');
+  var id = prefs.getString('id');
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: name == null ? HomePage() : DashboardScreen(name, id!),
+    ),
+  );
 }
 
 class HomePage extends StatefulWidget {
@@ -39,13 +48,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Map _source = {ConnectivityResult.none: false};
-  final MyConnectivity _connectivity = MyConnectivity.instance;
 
   @override
   void initState() {
     super.initState();
-    _connectivity.initialise();
-    _connectivity.myStream.listen((source) {
+    connectivity.initialise();
+    connectivity.myStream.listen((source) {
       setState(() => _source = source);
     });
   }
@@ -53,7 +61,6 @@ class _HomePageState extends State<HomePage> {
   var nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    String string;
     switch (_source.keys.toList()[0]) {
       case ConnectivityResult.mobile:
         string = 'Mobile: Online';
@@ -175,7 +182,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _connectivity.disposeStream();
+    connectivity.disposeStream();
     super.dispose();
   }
 }
